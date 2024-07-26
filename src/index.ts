@@ -1,26 +1,27 @@
 import {definePlugin} from 'sanity'
 
-interface MyPluginConfig {
-  /* nothing here yet */
-}
+import {tldrawType} from './schemaTypes/tldrawType'
 
 /**
  * Usage in `sanity.config.ts` (or .js)
  *
  * ```ts
  * import {defineConfig} from 'sanity'
- * import {myPlugin} from 'sanity-plugin-tldraw'
+ * import {tldraw} from 'sanity-plugin-tldraw'
  *
  * export default defineConfig({
  *   // ...
- *   plugins: [myPlugin()],
+ *   plugins: [tldraw()],
  * })
  * ```
  */
-export const myPlugin = definePlugin<MyPluginConfig | void>((config = {}) => {
+export const tldraw = definePlugin(() => {
   // eslint-disable-next-line no-console
   console.log('hello from sanity-plugin-tldraw')
   return {
     name: 'sanity-plugin-tldraw',
+    schema: {
+      types: [tldrawType],
+    },
   }
 })

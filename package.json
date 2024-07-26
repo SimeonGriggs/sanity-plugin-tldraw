@@ -44,7 +44,9 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@sanity/incompatible-plugin": "^1.0.4"
+    "@sanity/incompatible-plugin": "^1.0.4",
+    "@sanity/ui": "^2.8.8",
+    "tldraw": "^2.4.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
@@ -69,7 +71,12 @@
     "react-dom": "^18.3.1",
     "sanity": "^3.52.2",
     "styled-components": "^6.1",
-    "typescript": "^5.4.0"
+    "typescript": "^5.5.0"
+  },
+  "overrides": {
+    "@sanity/pkg-utils": {
+      "typescript": "$typescript"
+    }
   },
   "peerDependencies": {
     "react": "^18",

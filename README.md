@@ -1,6 +1,6 @@
 # sanity-plugin-tldraw
 
-Add a tldraw canvas to your Sanity Studio and React app in just 5 minutes.
+Add a tldraw canvas to your [Sanity Studio](https://www.sanity.io/studio) and React app in just 5 minutes.
 
 - [tldraw SDK](https://tldraw.dev)
 - [tldraw](https://www.tldraw.com)

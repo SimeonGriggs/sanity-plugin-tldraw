@@ -40,6 +40,7 @@ export function Value(props: TldrawObjectInputProps) {
 
     const currentDocument = JSON.parse(props.value?.document || '{}')
     const documentChanged = !deepEquals(document, currentDocument)
+
     if (documentChanged) {
       const updatedDocument = JSON.stringify(document)
       patches.push(set(updatedDocument, ['document']))
@@ -54,6 +55,7 @@ export function Value(props: TldrawObjectInputProps) {
       }
       const currentSession = props.value?.sessions?.find((s) => s.userId === currentUser.id)
       const sessionChanged = !deepEquals(userSession, currentSession)
+
       if (sessionChanged) {
         patches.push(setIfMissing([], ['sessions']))
         patches.push(set(userSession, ['sessions', {_key: currentUser.id}]))

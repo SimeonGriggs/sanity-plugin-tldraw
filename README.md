@@ -21,16 +21,24 @@ npm create sanity@latest
 
 ### Use in Sanity Studio
 
-Add it as a plugin in `sanity.config.ts`
+Add it as a plugin in `sanity.config.ts`.
+
+You will also need to import tldraw's CSS. Ideally this won't be necessary in a future release.
 
 ```ts
+// 1️⃣ import tldraw's css
+import 'tldraw/tldraw.css'
+
 import {defineConfig} from 'sanity'
+
+// 2️⃣ import the tldraw plugin
 import {tldraw} from 'sanity-plugin-tldraw'
 
 export default defineConfig({
   // ... other config
   plugins: [
     // ... other plugins
+    // 3️⃣ add the tldraw plugin
     tldraw(),
   ],
 })

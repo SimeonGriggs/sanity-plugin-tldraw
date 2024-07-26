@@ -1,7 +1,7 @@
 import 'tldraw/tldraw.css?raw'
 
-import {Box, Button, Card, Flex, Spinner, Stack} from '@sanity/ui'
-import {useCallback, useMemo, useState} from 'react'
+import {Box, Button, Card, Flex, Spinner, Stack, useClickOutsideEvent} from '@sanity/ui'
+import {useCallback, useMemo, useRef, useState} from 'react'
 import {unset, useFormValue} from 'sanity'
 import type {Editor} from 'tldraw'
 import {Tldraw} from 'tldraw'
@@ -40,7 +40,7 @@ export function TldrawInput(props: TldrawObjectInputProps) {
     }
   }, [editor])
 
-  const handleBlur = useCallback(() => {
+  const handleClickOutside = useCallback(() => {
     setFocused(false)
     if (editor) {
       editor.blur()
@@ -48,6 +48,9 @@ export function TldrawInput(props: TldrawObjectInputProps) {
       editor.setCurrentTool('hand')
     }
   }, [editor])
+
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  useClickOutsideEvent(handleClickOutside, () => [containerRef.current])
 
   const handleMount = useCallback((mountedEditor: Editor) => {
     setEditor(mountedEditor)
@@ -57,12 +60,12 @@ export function TldrawInput(props: TldrawObjectInputProps) {
   }, [])
 
   const handleClear = useCallback(() => {
-    onChange(unset())
+    onChange(unset([]))
   }, [onChange])
 
   return (
     <Stack space={4}>
-      <Box onFocus={handleFocus} onBlur={handleBlur} style={style}>
+      <Box ref={containerRef} onFocus={handleFocus} style={style}>
         {id ? (
           <Tldraw
             persistenceKey={persistenceKey}

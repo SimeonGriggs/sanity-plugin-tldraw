@@ -58,7 +58,7 @@ The `tldraw` schema type is an object with two fields:
 
 When querying on your front end, you likely only need the `document` field.
 
-```json
+```
 *[_type == "post"]{
   title,
   "drawing": drawing.document

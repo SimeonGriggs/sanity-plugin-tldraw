@@ -1,0 +1,75 @@
+{
+  "name": "sanity-plugin-tldraw",
+  "version": "1.0.0",
+  "description": "Draw things in your content",
+  "keywords": [
+    "sanity",
+    "sanity-plugin"
+  ],
+  "homepage": "https://github.com/SimeonGriggs/sanity-plugin-tldraw#readme",
+  "bugs": {
+    "url": "https://github.com/SimeonGriggs/sanity-plugin-tldraw/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/SimeonGriggs/sanity-plugin-tldraw.git"
+  },
+  "license": "MIT",
+  "author": "Simeon Griggs <simeon@hey.com>",
+  "sideEffects": false,
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "sanity.json",
+    "src",
+    "v2-incompatible.js"
+  ],
+  "scripts": {
+    "build": "plugin-kit verify-package --silent && pkg-utils build --strict --check --clean",
+    "format": "prettier --write --cache --ignore-unknown .",
+    "link-watch": "plugin-kit link-watch",
+    "lint": "eslint .",
+    "prepublishOnly": "npm run build",
+    "watch": "pkg-utils watch --strict"
+  },
+  "dependencies": {
+    "@sanity/incompatible-plugin": "^1.0.4"
+  },
+  "devDependencies": {
+    "@sanity/pkg-utils": "^6.10.6",
+    "@sanity/plugin-kit": "^4.0.17",
+    "@types/react": "^18.3.3",
+    "@typescript-eslint/eslint-plugin": "^7.17.0",
+    "@typescript-eslint/parser": "^7.17.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-sanity": "^7.1.2",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "prettier": "^3.3.3",
+    "prettier-plugin-packagejson": "^2.5.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sanity": "^3.52.2",
+    "styled-components": "^6.1",
+    "typescript": "^5.4.0"
+  },
+  "peerDependencies": {
+    "react": "^18",
+    "sanity": "^3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

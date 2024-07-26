@@ -57,7 +57,7 @@
     "@types/react": "^18.3.3",
     "@typescript-eslint/eslint-plugin": "^7.17.0",
     "@typescript-eslint/parser": "^7.17.0",
-    "eslint": "^8.0.0",
+    "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-sanity": "^7.1.2",
     "eslint-plugin-prettier": "^5.2.1",
@@ -81,5 +81,8 @@
   "engines": {
     "node": ">=18"
   },
-  "browserslist": "extends @sanity/browserslist-config"
+  "browserslist": "extends @sanity/browserslist-config",
+  "overrides": {
+    "conventional-changelog-conventionalcommits": ">= 8.0.0"
+  }
 }

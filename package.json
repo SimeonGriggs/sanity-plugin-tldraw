@@ -71,12 +71,8 @@
     "react-dom": "^18.3.1",
     "sanity": "^3.52.2",
     "styled-components": "^6.1",
-    "typescript": "^5.5.0"
-  },
-  "overrides": {
-    "@sanity/pkg-utils": {
-      "typescript": "$typescript"
-    }
+    "typescript": "^5.5.0",
+    "yalc": "1.0.0-pre.53"
   },
   "peerDependencies": {
     "react": "^18",
@@ -84,5 +80,6 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "browserslist": "extends @sanity/browserslist-config"
 }

@@ -16,8 +16,6 @@ import {tldrawType} from './schemaTypes/tldrawType'
  * ```
  */
 export const tldraw = definePlugin(() => {
-  // eslint-disable-next-line no-console
-  console.log('hello from sanity-plugin-tldraw')
   return {
     name: 'sanity-plugin-tldraw',
     schema: {

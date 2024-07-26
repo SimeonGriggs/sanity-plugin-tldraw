@@ -1,22 +1,35 @@
-import 'tldraw/tldraw.css'
+import 'tldraw/tldraw.css?raw'
 
 import {Box, Button, Card, Flex, Spinner, Stack} from '@sanity/ui'
-import {useCallback, useState} from 'react'
+import {useCallback, useMemo, useState} from 'react'
 import {unset, useFormValue} from 'sanity'
 import type {Editor} from 'tldraw'
 import {Tldraw} from 'tldraw'
 
-import {TldrawObjectInputProps} from '../types'
+import {TldrawObjectInputProps} from '../../../types'
 import {ColorSchemeSwitcher} from './ColorSchemeSwticher'
 import {Value} from './Value'
 
+const components = {
+  HelpMenu: null,
+  NavigationPanel: null,
+  MainMenu: null,
+  PageMenu: null,
+}
+
 export function TldrawInput(props: TldrawObjectInputProps) {
-  const {onChange} = props
-  const height = props.schemaType.options?.height || 600
+  const {onChange, schemaType} = props
+
   const id = useFormValue(['_id'])
   const persistenceKey = [`tldraw`, id, JSON.stringify(props.path)].join('-')
 
-  // Hide UI when tldraw is not focused
+  const style = useMemo(
+    () => ({
+      height: schemaType.options?.height || 600,
+    }),
+    [schemaType],
+  )
+
   const [focused, setFocused] = useState(Boolean(props.focused))
   const [editor, setEditor] = useState<Editor | null>(null)
 
@@ -49,18 +62,13 @@ export function TldrawInput(props: TldrawObjectInputProps) {
 
   return (
     <Stack space={4}>
-      <Box onFocus={handleFocus} onBlur={handleBlur} style={{height}}>
+      <Box onFocus={handleFocus} onBlur={handleBlur} style={style}>
         {id ? (
           <Tldraw
             persistenceKey={persistenceKey}
             autoFocus={false}
             hideUi={!focused}
-            components={{
-              HelpMenu: null,
-              NavigationPanel: null,
-              MainMenu: null,
-              PageMenu: null,
-            }}
+            components={components}
             onMount={handleMount}
           >
             <Value {...props} />

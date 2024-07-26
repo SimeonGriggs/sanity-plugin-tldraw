@@ -7,11 +7,19 @@ Add a tldraw canvas to your Sanity Studio and React app in just 5 minutes.
 
 ## Installation
 
+Inside your Sanity Studio
+
 ```sh
 npm install sanity-plugin-tldraw
 ```
 
-## Use in Sanity Studio
+If you do not yet have a Sanity Studio, you can create a new free project with the following command
+
+```sh
+npm create sanity@latest
+```
+
+### Use in Sanity Studio
 
 Add it as a plugin in `sanity.config.ts`
 
@@ -54,7 +62,7 @@ The `tldraw` schema type is an object with two fields:
 - `document`, stringified JSON of the drawing, this needs to be parsed when rendered into your front end.
 - `sessions`, an array of stringified JSON saving the state of each user that interacts with the drawing, so that their position is synced across browsers and saved for when they return.
 
-## Render in your front end
+### Render in your front end
 
 When querying on your front end, you likely only need the `document` field.
 

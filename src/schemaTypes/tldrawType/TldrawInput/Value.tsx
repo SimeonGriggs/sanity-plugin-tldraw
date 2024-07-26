@@ -3,7 +3,7 @@ import type {FormPatch} from 'sanity'
 import {set, setIfMissing, useWorkspace} from 'sanity'
 import {debounce, getSnapshot, loadSnapshot, useEditor} from 'tldraw'
 
-import {TldrawObjectInputProps, TldrawObjectValue} from '../types'
+import {TldrawObjectInputProps, TldrawObjectValue} from '../../../types'
 import {deepEquals} from './deepEquals'
 
 // Update document value when changes are made in tldraw

@@ -2,6 +2,8 @@
 
 Add a tldraw canvas to your [Sanity Studio](https://www.sanity.io/studio) and React app in just 5 minutes.
 
+📹 [Watch a 20 second video to see how it works](https://x.com/simeonGriggs/status/1815615650833772891)
+
 - [tldraw SDK](https://tldraw.dev)
 - [tldraw](https://www.tldraw.com)
 

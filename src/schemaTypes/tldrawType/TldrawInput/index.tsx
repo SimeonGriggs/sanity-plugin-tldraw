@@ -1,11 +1,14 @@
-import 'tldraw/tldraw.css?raw'
-
-import {Box, Button, Card, Flex, Spinner, Stack, useClickOutsideEvent} from '@sanity/ui'
+import {ExpandIcon} from '@sanity/icons'
+import {Box, Button, Grid, Stack, useClickOutsideEvent} from '@sanity/ui'
 import {useCallback, useMemo, useRef, useState} from 'react'
 import {unset, useFormValue} from 'sanity'
 import type {Editor} from 'tldraw'
 import {Tldraw} from 'tldraw'
 
+import {DialogWrapper} from '../../../components/DialogWrapper'
+import {Filler} from '../../../components/Filler'
+import {useTldrawModal} from '../../../components/TldrawModal'
+import {createPersistenceKey} from '../../../lib/createPersistenceKey'
 import {TldrawObjectInputProps} from '../../../types'
 import {ColorSchemeSwitcher} from './ColorSchemeSwticher'
 import {Value} from './Value'
@@ -20,15 +23,13 @@ const components = {
 export function TldrawInput(props: TldrawObjectInputProps) {
   const {onChange, schemaType} = props
 
-  const id = useFormValue(['_id'])
-  const persistenceKey = [`tldraw`, id, JSON.stringify(props.path)].join('-')
+  const id = useFormValue(['_id']) as string
+  const documentId = id.replace(/^drafts\./, '')
+  const persistenceKey = createPersistenceKey({documentId, path: props.path})
+  const {tldrawModal, toggleTldrawModal} = useTldrawModal()
+  const tldrawModalIsOpen = tldrawModal === persistenceKey
 
-  const style = useMemo(
-    () => ({
-      height: schemaType.options?.height || 600,
-    }),
-    [schemaType],
-  )
+  const style = useMemo(() => ({height: schemaType.options?.height || 600}), [schemaType])
 
   const [focused, setFocused] = useState(Boolean(props.focused))
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -41,13 +42,16 @@ export function TldrawInput(props: TldrawObjectInputProps) {
   }, [editor])
 
   const handleClickOutside = useCallback(() => {
+    if (tldrawModalIsOpen) {
+      return
+    }
     setFocused(false)
     if (editor) {
       editor.blur()
       editor.selectNone()
       editor.setCurrentTool('hand')
     }
-  }, [editor])
+  }, [editor, tldrawModalIsOpen])
 
   const containerRef = useRef<HTMLDivElement | null>(null)
   useClickOutsideEvent(handleClickOutside, () => [containerRef.current])
@@ -63,29 +67,54 @@ export function TldrawInput(props: TldrawObjectInputProps) {
     onChange(unset([]))
   }, [onChange])
 
+  const handleOpen = useCallback(() => {
+    toggleTldrawModal(persistenceKey)
+    if (editor) {
+      editor.focus()
+    }
+  }, [editor, persistenceKey, toggleTldrawModal])
+
+  // TODO: Re-centre on content after modal closes
+  const handleClose = useCallback(() => {
+    toggleTldrawModal()
+    if (editor) {
+      editor.blur()
+    }
+  }, [toggleTldrawModal, editor])
+
   return (
     <Stack space={4}>
       <Box ref={containerRef} onFocus={handleFocus} style={style}>
         {id ? (
-          <Tldraw
-            persistenceKey={persistenceKey}
-            autoFocus={false}
-            hideUi={!focused}
-            components={components}
-            onMount={handleMount}
+          <DialogWrapper
+            header={props.schemaType.title || props.schemaType.name}
+            onClose={handleClose}
+            onActivate={handleOpen}
+            isOpen={tldrawModalIsOpen}
           >
-            <Value {...props} />
-            <ColorSchemeSwitcher />
-          </Tldraw>
+            <Tldraw
+              persistenceKey={persistenceKey}
+              autoFocus={false}
+              hideUi={!focused}
+              components={components}
+              onMount={handleMount}
+            >
+              <Value {...props} />
+              <ColorSchemeSwitcher />
+            </Tldraw>
+          </DialogWrapper>
         ) : (
-          <Card __unstable_checkered>
-            <Flex align="center" justify="center">
-              <Spinner />
-            </Flex>
-          </Card>
+          <Filler />
         )}
       </Box>
-      <Button onClick={handleClear} text="Clear" tone="critical" />
+      <Grid columns={2} gap={2}>
+        <Button
+          onClick={handleOpen}
+          icon={ExpandIcon}
+          text={tldrawModalIsOpen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+        />
+        <Button onClick={handleClear} text="Clear" tone="critical" />
+      </Grid>
     </Stack>
   )
 }

@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/SimeonGriggs/sanity-plugin-tldraw/compare/v1.0.0...v1.1.0) (2024-07-29)
+
+### Features
+
+- fullscreen editing ([d2b6d89](https://github.com/SimeonGriggs/sanity-plugin-tldraw/commit/d2b6d8939ade1cbac43bf57fa625387268450258))
+
 ## 1.0.0 (2024-07-26)
 
 ### Features

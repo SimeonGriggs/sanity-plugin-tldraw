@@ -62,7 +62,6 @@
     "@sanity/pkg-utils": "^8.0.0",
     "@sanity/plugin-kit": "^4.0.19",
     "@sanity/semantic-release-preset": "^5.0.0",
-    "@sanity/ui-workshop": "^2.0.16",
     "@types/node": "20",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",

@@ -1,4 +1,4 @@
-import {Path, pathToString} from 'sanity'
+import {type Path, pathToString} from 'sanity'
 
 export function createPersistenceKey(props: {documentId: string; path: Path}) {
   const pathString = pathToString(props.path)

@@ -9,7 +9,7 @@ import {DialogWrapper} from '../../../components/DialogWrapper'
 import {Filler} from '../../../components/Filler'
 import {useTldrawModal} from '../../../components/TldrawModal'
 import {createPersistenceKey} from '../../../lib/createPersistenceKey'
-import {TldrawObjectInputProps} from '../../../types'
+import {type TldrawObjectInputProps} from '../../../types'
 import {ColorSchemeSwitcher} from './ColorSchemeSwticher'
 import {Value} from './Value'
 

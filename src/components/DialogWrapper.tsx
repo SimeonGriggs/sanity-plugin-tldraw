@@ -1,5 +1,5 @@
 import {Dialog, DialogProvider} from '@sanity/ui'
-import {CSSProperties, PropsWithChildren, useRef} from 'react'
+import {type CSSProperties, type PropsWithChildren, useRef} from 'react'
 
 import {Filler} from './Filler'
 

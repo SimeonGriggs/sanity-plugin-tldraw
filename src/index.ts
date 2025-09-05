@@ -1,4 +1,4 @@
-import 'tldraw/tldraw.css'
+// import 'tldraw/tldraw.css'
 
 import {definePlugin} from 'sanity'
 
@@ -7,6 +7,7 @@ import {TldrawModalProvider} from './components/TldrawModal'
 import {tldrawType} from './schemaTypes/tldrawType'
 
 /**
+ * @public
  * Usage in `sanity.config.ts` (or .js)
  *
  * ```ts

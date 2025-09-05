@@ -1,13 +1,12 @@
 import {AddIcon} from '@sanity/icons'
 import {useCallback} from 'react'
-import {defineDocumentFieldAction, DocumentFieldActionItem} from 'sanity'
+import {defineDocumentFieldAction, type DocumentFieldActionItem} from 'sanity'
 
 import {useTldrawModal} from './components/TldrawModal'
 import {createPersistenceKey} from './lib/createPersistenceKey'
 
 export const tldrawAction = defineDocumentFieldAction({
   name: 'tldraw',
-  // @ts-expect-error icons don't match for some reason
   useAction(props) {
     const {schemaType} = props
     const isTldrawField = schemaType.type?.name === 'tldraw'

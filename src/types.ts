@@ -1,4 +1,4 @@
-import {ObjectInputProps, ObjectOptions as DefaultObjectOptions} from 'sanity'
+import {type ObjectInputProps, type ObjectOptions as DefaultObjectOptions} from 'sanity'
 
 export type TldrawObjectValue = {
   document?: string

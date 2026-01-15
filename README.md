@@ -110,11 +110,34 @@ export function Post({title, drawing}) {
 
 ## Develop & test
 
-This plugin uses [@sanity/plugin-kit](https://github.com/sanity-io/plugin-kit)
-with default configuration for build & watch scripts.
+This plugin uses [@sanity/plugin-kit](https://github.com/sanity-io/plugin-kit) with default configuration for build & watch scripts.
 
-See [Testing a plugin in Sanity Studio](https://github.com/sanity-io/plugin-kit#testing-a-plugin-in-sanity-studio)
-on how to run this plugin with hotreload in the studio.
+A test studio is included in the `studio/` directory for local development.
+
+### Setup
+
+```sh
+# Install dependencies
+pnpm install
+
+# Set up environment variables for the test studio
+cp studio/.env.template studio/.env
+# Edit studio/.env with your Sanity project ID and dataset
+```
+
+### Development
+
+```sh
+# Run the plugin in watch mode + start the test studio
+pnpm run dev
+```
+
+This will:
+
+1. Watch for changes in the plugin source code and rebuild automatically
+2. Start the Sanity Studio at http://localhost:3333
+
+Changes to files in `src/` will hot-reload in the studio.
 
 ### Release new version
 

@@ -1,6 +1,6 @@
-import {ExpandIcon} from '@sanity/icons'
+import {ExpandIcon, ResetIcon} from '@sanity/icons'
 import {Box, Button, Grid, Stack, useClickOutsideEvent} from '@sanity/ui'
-import {useCallback, useMemo, useRef, useState} from 'react'
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {unset, useFormValue} from 'sanity'
 import type {Editor} from 'tldraw'
 import {Tldraw} from 'tldraw'
@@ -29,7 +29,13 @@ export function TldrawInput(props: TldrawObjectInputProps) {
   const {tldrawModal, toggleTldrawModal} = useTldrawModal()
   const tldrawModalIsOpen = tldrawModal === persistenceKey
 
-  const style = useMemo(() => ({height: schemaType.options?.height || 600}), [schemaType])
+  const style = useMemo(
+    () =>
+      schemaType.options?.height
+        ? {height: schemaType.options.height}
+        : {aspectRatio: '16 / 9', width: '100%'},
+    [schemaType],
+  )
 
   const [focused, setFocused] = useState(Boolean(props.focused))
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -56,12 +62,27 @@ export function TldrawInput(props: TldrawObjectInputProps) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   useClickOutsideEvent(handleClickOutside, () => [containerRef.current])
 
-  const handleMount = useCallback((mountedEditor: Editor) => {
-    setEditor(mountedEditor)
-    mountedEditor.setCurrentTool('hand')
-    mountedEditor.user.updateUserPreferences({edgeScrollSpeed: 0})
-    mountedEditor.updateInstanceState({isDebugMode: false})
+  const centerContent = useCallback((editorInstance: Editor) => {
+    // Only zoom to fit if there are shapes, otherwise reset to default view
+    const hasShapes = editorInstance.getCurrentPageShapeIds().size > 0
+    if (hasShapes) {
+      editorInstance.zoomToFit({animation: {duration: 0}})
+    } else {
+      editorInstance.resetZoom()
+    }
   }, [])
+
+  const handleMount = useCallback(
+    (mountedEditor: Editor) => {
+      setEditor(mountedEditor)
+      mountedEditor.setCurrentTool('hand')
+      mountedEditor.user.updateUserPreferences({edgeScrollSpeed: 0})
+      mountedEditor.updateInstanceState({isDebugMode: false})
+      // Center content on initial load
+      setTimeout(() => centerContent(mountedEditor), 100)
+    },
+    [centerContent],
+  )
 
   const handleClear = useCallback(() => {
     onChange(unset([]))
@@ -69,21 +90,33 @@ export function TldrawInput(props: TldrawObjectInputProps) {
 
   const handleOpen = useCallback(() => {
     toggleTldrawModal(persistenceKey)
-    if (editor) {
-      editor.focus()
-    }
-  }, [editor, persistenceKey, toggleTldrawModal])
+  }, [persistenceKey, toggleTldrawModal])
 
-  // TODO: Re-centre on content after modal closes
+  // Focus the editor when fullscreen modal opens
+  useEffect(() => {
+    if (!tldrawModalIsOpen || !editor) {
+      return
+    }
+    setFocused(true)
+    // Delay to allow the dialog animation to complete
+    const timer = setTimeout(() => {
+      editor.getContainer().focus()
+      editor.focus()
+    }, 200)
+    return () => clearTimeout(timer)
+  }, [tldrawModalIsOpen, editor])
+
   const handleClose = useCallback(() => {
     toggleTldrawModal()
     if (editor) {
       editor.blur()
+      // Re-centre on content after modal closes
+      setTimeout(() => centerContent(editor), 100)
     }
-  }, [toggleTldrawModal, editor])
+  }, [toggleTldrawModal, editor, centerContent])
 
   return (
-    <Stack space={4}>
+    <Stack space={2}>
       <Box ref={containerRef} onFocus={handleFocus} style={style}>
         {id ? (
           <DialogWrapper
@@ -112,8 +145,9 @@ export function TldrawInput(props: TldrawObjectInputProps) {
           onClick={handleOpen}
           icon={ExpandIcon}
           text={tldrawModalIsOpen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+          mode="ghost"
         />
-        <Button onClick={handleClear} text="Clear" tone="critical" />
+        <Button onClick={handleClear} icon={ResetIcon} text="Clear" tone="critical" mode="ghost" />
       </Grid>
     </Stack>
   )

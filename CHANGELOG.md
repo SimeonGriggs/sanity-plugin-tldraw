@@ -5,6 +5,21 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.0.0 (2026-01-15)
+
+- feat!: update to plugin-kit standards and Sanity v5 ([42ac82b](https://github.com/SimeonGriggs/sanity-plugin-tldraw/commit/42ac82b))
+- Merge pull request #6 from SimeonGriggs/feat/v3-plugin-kit-update ([37818fa](https://github.com/SimeonGriggs/sanity-plugin-tldraw/commit/37818fa)), closes [#6](https://github.com/SimeonGriggs/sanity-plugin-tldraw/issues/6)
+- Merge pull request #7 from SimeonGriggs/fix/ci-pnpm ([f12d04c](https://github.com/SimeonGriggs/sanity-plugin-tldraw/commit/f12d04c)), closes [#7](https://github.com/SimeonGriggs/sanity-plugin-tldraw/issues/7)
+- fix: remove --if-present flags incompatible with pnpm ([a621d28](https://github.com/SimeonGriggs/sanity-plugin-tldraw/commit/a621d28))
+- fix: specify pnpm version in packageManager field ([6c0aadc](https://github.com/SimeonGriggs/sanity-plugin-tldraw/commit/6c0aadc))
+- fix: update CI workflow to use pnpm ([c86c121](https://github.com/SimeonGriggs/sanity-plugin-tldraw/commit/c86c121))
+- fix: use correct pnpm syntax for --if-present flag ([9929a2a](https://github.com/SimeonGriggs/sanity-plugin-tldraw/commit/9929a2a))
+- docs: add env template and improve dev instructions ([8dfc948](https://github.com/SimeonGriggs/sanity-plugin-tldraw/commit/8dfc948))
+
+### BREAKING CHANGE
+
+- Now requires sanity ^5 and react ^19 as peer dependencies
+
 ## [2.0.0](https://github.com/SimeonGriggs/sanity-plugin-tldraw/compare/v1.1.0...v2.0.0) (2025-09-11)
 
 ### ⚠ BREAKING CHANGES

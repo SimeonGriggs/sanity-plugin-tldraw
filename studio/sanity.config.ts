@@ -9,8 +9,8 @@ export default defineConfig({
   name: 'default',
   title: 'tldraw Plugin Test',
 
-  projectId: 'az8av6xl',
-  dataset: 'development',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
+  dataset: process.env.SANITY_STUDIO_DATASET!,
 
   plugins: [structureTool(), tldraw()],
 

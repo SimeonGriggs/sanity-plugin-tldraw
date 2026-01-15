@@ -19,7 +19,6 @@ export function DialogWrapper({children, header, isOpen, onActivate, onClose}: D
     <>
       {/* DialogProvider is required so the Dialog is not scoped to the form editor */}
       <DialogProvider zOffset={100000}>
-        {/* TODO: Make sure tldraw editor gets focus on open (why is there no onOpen?) */}
         <Dialog
           __unstable_autoFocus={false}
           animate

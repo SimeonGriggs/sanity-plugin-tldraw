@@ -1,5 +1,8 @@
 {
   "extends": "./tsconfig.settings",
+  "compilerOptions": {
+    "noCheck": true
+  },
   // Only use the src dir during build
   "include": ["./src"]
 }

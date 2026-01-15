@@ -60,3 +60,7 @@ yalc.lock
 dist
 
 .sanity
+
+# Test studio
+studio/node_modules
+studio/dist

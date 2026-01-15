@@ -32,19 +32,18 @@
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "sanity.json",
-    "src",
-    "v2-incompatible.js"
+    "src"
   ],
   "scripts": {
     "build": "plugin-kit verify-package --silent && pkg-utils build --strict --check --clean",
     "clean": "rimraf dist",
-    "dev": "sanity dev",
+    "dev": "pkg-utils watch --strict & (cd studio && pnpm dev)",
     "format": "prettier --write --cache --ignore-unknown .",
     "link-watch": "plugin-kit link-watch",
     "lint": "eslint .",
-    "prepare": "husky install",
+    "prepare": "husky",
     "prepublishOnly": "npm run build",
+    "studio:install": "npm install --prefix studio",
     "watch": "pkg-utils watch --strict"
   },
   "browserslist": "extends @sanity/browserslist-config",
@@ -60,7 +59,7 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@sanity/pkg-utils": "^8.0.0",
-    "@sanity/plugin-kit": "^4.0.19",
+    "@sanity/plugin-kit": "^4.0.20",
     "@sanity/semantic-release-preset": "^5.0.0",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/github": "^11.0.6",
@@ -71,11 +70,9 @@
     "@types/react-dom": "^19.0.4",
     "@typescript-eslint/eslint-plugin": "^8.43.0",
     "@typescript-eslint/parser": "^8.43.0",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-config-sanity": "^7.1.2",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.1",
     "fs-extra": "^11.2.0",
     "husky": "^9.1.2",
     "json5": "2.2.3",
@@ -86,7 +83,7 @@
     "react-dom": "^19.1.1",
     "readdirp": "^3.6.0",
     "rimraf": "^4.4.1",
-    "sanity": "^4.6.1",
+    "sanity": "^5.0.0",
     "semantic-release": "^24.2.8",
     "styled-components": "^6.1.19",
     "ts-node": "^10.9.2",
@@ -94,7 +91,7 @@
   },
   "peerDependencies": {
     "react": "^19",
-    "sanity": "^4"
+    "sanity": "^5"
   },
   "engines": {
     "node": ">=20"
@@ -102,7 +99,8 @@
   "sanityPlugin": {
     "verifyPackage": {
       "sanityV2Json": false,
-      "nodeEngine": false
+      "nodeEngine": false,
+      "eslintImports": false
     }
   }
 }

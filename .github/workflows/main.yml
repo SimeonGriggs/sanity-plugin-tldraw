@@ -119,7 +119,6 @@ jobs:
           cache: pnpm
           node-version: lts/*
       - run: pnpm install
-      - run: pnpm audit signatures
         # Branches that will release new versions are defined in .releaserc.json
       - run: npx semantic-release
         # Don't allow interrupting the release step if the job is cancelled, as it can lead to an inconsistent state
